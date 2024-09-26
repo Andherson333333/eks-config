@@ -16,6 +16,7 @@ module "eks" {
     kube-proxy             = {}
     vpc-cni                = {}
     aws-ebs-csi-driver     = {service_account_role_arn = module.eks-pod-identity.iam_role_arn}
+    aws-efs-csi-driver     = {service_account_role_arn = module.eks_efs_csi_driver.iam_role_arn}
   }
 
   vpc_id                   = module.vpc.vpc_id

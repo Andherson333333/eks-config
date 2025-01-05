@@ -1,7 +1,7 @@
 # EKS Module
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.24.2"
+  version = "20.31.6"
 
   cluster_name    = local.name
   cluster_version = "1.30"
@@ -17,6 +17,7 @@ module "eks" {
     vpc-cni                = {}
     aws-ebs-csi-driver     = {service_account_role_arn = module.eks-pod-identity.iam_role_arn}
     aws-efs-csi-driver     = {service_account_role_arn = module.eks_efs_csi_driver.iam_role_arn}
+    aws-mountpoint-s3-csi-driver = {service_account_role_arn = module.mountpoint-s3-csi.iam_role_arn}
   }
 
   vpc_id                   = module.vpc.vpc_id

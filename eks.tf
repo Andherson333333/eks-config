@@ -12,10 +12,10 @@ module "eks" {
  
  # Combined cluster addons
  cluster_addons = {
-   coredns                = {}
-   eks-pod-identity-agent = {}
-   kube-proxy            = {}
-   vpc-cni               = {}
+   coredns                 = {}
+   eks-pod-identity-agent  = {}
+   kube-proxy              = {}
+   vpc-cni                 = {}
    # Optional CSI drivers
    # aws-ebs-csi-driver           = {service_account_role_arn = module.eks-pod-identity.iam_role_arn}
    # aws-efs-csi-driver           = {service_account_role_arn = module.eks_efs_csi_driver.iam_role_arn}

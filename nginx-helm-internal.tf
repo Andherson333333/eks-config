@@ -45,6 +45,14 @@ resource "helm_release" "nginx_internal" {
  }
 
  # Port configuration
+ # set {
+ #   name  = "controller.service.ports.http"
+ #   value = "80"
+ # }
+ # set {
+ #   name  = "controller.service.enableHttp"
+ #   value = "true"
+ # }
  set {
    name  = "controller.service.ports.https"
    value = "443"

@@ -1,7 +1,7 @@
 # Helm release for internal nginx ingress controller
 resource "helm_release" "nginx_internal" {
  # Basic chart configuration
- name             = "internal"
+ name             = "nginx-internal"
  repository       = "https://kubernetes.github.io/ingress-nginx"
  chart            = "ingress-nginx"
  namespace        = "ingress-nginx-internal"
@@ -24,16 +24,16 @@ resource "helm_release" "nginx_internal" {
 
  # AWS Load Balancer configuration
  set {
+   name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-internal"
+   value = "true"
+ }
+ set {
    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
-   value = "external"
+   value = "nlb"
  }
  set {
    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-nlb-target-type"
    value = "ip"
- }
- set {
-   name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
-   value = "internal"
  }
  set {
    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert"
@@ -45,14 +45,6 @@ resource "helm_release" "nginx_internal" {
  }
 
  # Port configuration
- # set {
- #   name  = "controller.service.ports.http"
- #   value = "80"
- # }
- # set {
- #   name  = "controller.service.enableHttp"
- #   value = "true"
- # }
  set {
    name  = "controller.service.ports.https"
    value = "443"

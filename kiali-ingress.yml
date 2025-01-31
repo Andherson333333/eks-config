@@ -1,0 +1,28 @@
+# Kubernetes Ingress Definition for Kiali
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kiali-ingress
+  namespace: istio-system
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"          # Disable SSL redirection
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"    # Ensure SSL redirection is disabled
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"       # Set backend communication protocol
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"          # Remove body size limit for uploads
+spec:
+  ingressClassName: nginx-external    # For external access
+  # ingressClassName: nginx-internal  # For internal access (commented)
+  tls:
+  - hosts:
+    - kiali.andherson33.click
+  rules:
+  - host: kiali.andherson33.click
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kiali
+            port:
+              number: 20001

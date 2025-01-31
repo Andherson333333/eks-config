@@ -1,0 +1,32 @@
+# Kubernetes Ingress Definition for ArgoCD
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+ name: argocd-ingress
+ namespace: argocd
+ annotations:
+   nginx.ingress.kubernetes.io/ssl-redirect: "false"          # Disable SSL redirection
+   nginx.ingress.kubernetes.io/force-ssl-redirect: "false"    # Ensure SSL redirection is disabled
+   nginx.ingress.kubernetes.io/backend-protocol: "HTTP"       # Set backend communication protocol
+   nginx.ingress.kubernetes.io/proxy-body-size: "0"          # Remove body size limit for uploads
+
+spec:
+ ingressClassName: nginx-external    # For external access
+ # ingressClassName: nginx-internal  # For internal access (commented)
+
+ tls:
+ - hosts:
+   - argocd.andherson33.click
+
+ rules:
+ - host: argocd.andherson33.click   
+   http:
+     paths:
+     - path: /                      
+       pathType: Prefix             
+       backend:
+         service:                  
+           name: argocd-server      
+           port:
+             number: 80             

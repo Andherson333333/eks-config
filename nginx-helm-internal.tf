@@ -1,7 +1,7 @@
 # Helm release for internal nginx ingress controller
-resource "helm_release" "nginx_internal" {
+resource "helm_release" "internal-nginx" {
  # Basic chart configuration
- name             = "nginx-internal"
+ name             = "internal"
  repository       = "https://kubernetes.github.io/ingress-nginx"
  chart            = "ingress-nginx"
  namespace        = "ingress-nginx-internal"

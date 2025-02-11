@@ -4,7 +4,7 @@ module "eks" {
   version = "20.33.1"
  
   cluster_name    = local.name
-  cluster_version = "1.31"
+  cluster_version = "1.32"
  
   enable_cluster_creator_admin_permissions = true
   cluster_endpoint_public_access          = true
